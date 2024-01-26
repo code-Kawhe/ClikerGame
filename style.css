@@ -1,0 +1,200 @@
+@font-face {
+    font-family: Baloo Thambi;
+    src: url(./fonts/BalooThambi-Regular.ttf)
+}
+
+
+body {
+    margin: 0px;
+    padding: 20px;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 40px);
+    overflow: hidden;
+    background-color: #3271B6;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+nav {
+    width: 35%;
+    height: 100%;
+    border-radius: 10px;
+    background: #194575;
+    box-shadow: -2px -2px 10px 0px #001D3D inset, 2px 2px 4px 2px #002D5E inset;
+}
+
+main {
+    width: 65%;
+    height: 100%;
+    border-radius: 10px;
+    background: #194575;
+    box-shadow: -2px -2px 10px 0px #001D3D inset, 2px 2px 4px 2px #002D5E inset;
+}
+
+nav .BtnsNav {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav .BtnsNav button {
+    height: 65%;
+    width: auto;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: #194575;
+    box-shadow: -2px -2px 4px 2px #002D5E, 2px 2px 4px 2px #002D5E;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Baloo Thambi;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+nav .BtnsNav button:hover {
+    filter: brightness(90%);
+}
+
+nav .BtnsNav button:active {
+    box-shadow: -1px -1px 4px 2px #002D5E inset, 1px 1px 4px 2px #002D5E inset;
+}
+
+nav .ItensNav {
+    width: 100%;
+    height: calc(100% - 70px);
+    background-color: red;
+    border-radius: 10px;
+    background: #194575;
+    box-shadow: -2px -2px 10px 0px #001D3D inset, 2px 2px 4px 2px #002D5E inset;
+}
+
+.TopMain {
+    width: 100%;
+    height: 85px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.MainMain {
+    width: 100%;
+    height: calc(100% - 85px);
+}
+
+.LeftTop {
+    width: 60%;
+    height: calc(100% - 30px);
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.RightTop {
+    width: 40%;
+    height: calc(100% - 30px);
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.RightTop div {
+    width: 35%;
+    height: 100%;
+    border-radius: 5px;
+    background: #194575;
+    box-shadow: 2px 2px 4px 2px #002D5E, -2px -2px 4px 2px #002D5E;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    gap: 20px;
+    color: #FFF;
+    font-family: "Baloo Thambi";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.RightTop div button {
+    border-radius: 2.5px;
+    background: #194575;
+    box-shadow: -1px -1px 4px 2px #002D5E inset, 1px 1px 4px 2px #002D5E inset;
+    width: 40px;
+    height: 40px;
+    border: none;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Baloo Thambi";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RightTop div button:hover {
+    filter: brightness(90%);
+}
+
+.RightTop div button:active {
+    box-shadow: -1px -1px 4px 2px #002D5E, 1px 1px 4px 2px #002D5E;
+}
+
+
+.MoneyDisplay {
+    width: 40%;
+    height: 85%;
+    border-radius: 5px;
+    background: #194575;
+    box-shadow: 2px 2px 4px 2px #002D5E, -2px -2px 4px 2px #002D5E;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Baloo Thambi";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.DiamondDisplay {
+    width: 40%;
+    height: 85%;
+    border-radius: 5px;
+    background: #194575;
+    box-shadow: 2px 2px 4px 2px #002D5E, -2px -2px 4px 2px #002D5E;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Baloo Thambi";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
