@@ -27,14 +27,41 @@
             </div>
             <div class="RightTop">
                 <div>
-                    <button>-</button>
-                    <p>{{nome_item}}</p>
-                    <button>+</button>
+                    <button id="RetrocederIten" >-</button>
+                    <p id="NomeItem"></p>
+                    <button id="AvançarIten" >+</button>
                 </div>
             </div>
         </div>
-        <div class="MainMain"></div>
+        <div class="MainMain">
+            <div class="LeftMain">
+                <div class="CardSearh">
+                    <div class="imageTesoura"></div>
+                    <div class="Atributos">
+                        <div>
+
+                            <p>DANO POR CLIKE:</p>
+                            <p>DINHEIRO POR CLIKE:</p>
+                            <p>DANO POR SEGUNDO:</p>
+                            <p>DINHEIRO POR SEGUNDO:</p>
+                        </div> 
+                        <div>
+                            <p>{{}}</p>
+                            <p>{{}}</p>
+                            <p>{{}}</p>
+                            <p>{{}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="RigthMain">
+                <div class="CardItem" id="CardItem"></div>
+            </div>
+        </div>
     </main>
+
+    <script src="game.js"></script>
+    
 </body>
 
 </html>
