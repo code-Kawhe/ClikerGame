@@ -11,10 +11,10 @@
 <body>
     <nav>
         <div class="BtnsNav">
-            <button>LOJA</button>
-            <button>UPGRADE</button>
-            <button>STATUS</button>
-            <button>CONFIG</button>
+            <button id="loja">LOJA</button>
+            <button id="up">UPGRADE</button>
+            <button id="status">STATUS</button>
+            <button id="config">CONFIG</button>
         </div>
         <div class="ItensNav"></div>
     </nav>
@@ -22,14 +22,20 @@
     <main>
         <div class="TopMain">
             <div class="LeftTop">
-                <div class="MoneyDisplay">R$ 5.000,00</div>
-                <div class="DiamondDisplay">D 5.000,00</div>
+                <div class="MoneyDisplay">R$ <span id="Money"></span></div>
+                <div class="LevelDisplay">Lv <span id="Level"></span></div>
             </div>
             <div class="RightTop">
-                <div>
-                    <button id="RetrocederIten" >-</button>
-                    <p id="NomeItem"></p>
-                    <button id="AvançarIten" >+</button>
+                <div class="Box">
+                    <div class="BtnDiv">
+                        <button id="RetrocederIten" >-</button>
+                    </div>
+                    <div class="NomeItemDiv">
+                        <p id="NomeItem"></p>
+                    </div>
+                    <div class="BtnDiv">
+                        <button id="AvançarIten" >+</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,30 +43,18 @@
             <div class="LeftMain">
                 <div class="CardSearh">
                     <div class="imageTesoura"></div>
-                    <div class="Atributos">
-                        <div>
-
-                            <p>DANO POR CLIKE:</p>
-                            <p>DINHEIRO POR CLIKE:</p>
-                            <p>DANO POR SEGUNDO:</p>
-                            <p>DINHEIRO POR SEGUNDO:</p>
-                        </div> 
-                        <div>
-                            <p>{{}}</p>
-                            <p>{{}}</p>
-                            <p>{{}}</p>
-                            <p>{{}}</p>
-                        </div>
-                    </div>
+                    <div class="Atributos"></div>
                 </div>
             </div>
             <div class="RigthMain">
                 <div class="CardItem" id="CardItem"></div>
+                <div id="money-text" class="hidden">+$1</div>
             </div>
         </div>
     </main>
 
     <script src="game.js"></script>
+    <script src="ScreenManager.js"></script>
     
 </body>
 

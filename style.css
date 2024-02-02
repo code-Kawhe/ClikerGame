@@ -112,7 +112,7 @@ nav .ItensNav {
     align-items: center;
 }
 
-.RightTop div {
+.RightTop .Box {
     width: 35%;
     height: 100%;
     border-radius: 5px;
@@ -120,10 +120,9 @@ nav .ItensNav {
     box-shadow: 2px 2px 4px 2px #002D5E, -2px -2px 4px 2px #002D5E;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 85%;
-    gap: 20px;
     color: #FFF;
     font-family: "Baloo Thambi";
     font-size: 16px;
@@ -132,7 +131,7 @@ nav .ItensNav {
     line-height: normal;
 }
 
-.RightTop div button {
+.RightTop .Box button {
     border-radius: 2.5px;
     background: #194575;
     box-shadow: -1px -1px 4px 2px #002D5E inset, 1px 1px 4px 2px #002D5E inset;
@@ -151,11 +150,11 @@ nav .ItensNav {
     align-items: center;
 }
 
-.RightTop div button:hover {
+.RightTop .Box button:hover {
     filter: brightness(90%);
 }
 
-.RightTop div button:active {
+.RightTop .Box button:active {
     box-shadow: -1px -1px 4px 2px #002D5E, 1px 1px 4px 2px #002D5E;
 }
 
@@ -177,9 +176,10 @@ nav .ItensNav {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    gap: 5px;
 }
 
-.DiamondDisplay {
+.LevelDisplay {
     width: 40%;
     height: 85%;
     border-radius: 5px;
@@ -259,4 +259,48 @@ nav .ItensNav {
     max-height: 90%;
     align-self: center;
     justify-self: center;
+}
+
+.NomeItem {
+    min-width: calc(100% - 80px);
+}
+
+.NomeItemDiv {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.BtnDiv {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.Miner {
+    width: 100%;
+
+}
+
+.LevelDisplay {
+    gap: 5px;
+}
+
+.money-text {
+    position: absolute;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    z-index: 50;
+
+}
+
+.hidden {
+    display: none;
 }
