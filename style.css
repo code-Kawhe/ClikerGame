@@ -230,8 +230,15 @@ nav .ItensNav {
     background: #194575;
     box-shadow: 2px 2px 4px 2px #002D5E, -2px -2px 4px 2px #002D5E;
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.CardItem progress {
+    width: 90%;
+    height: 25px;
+    margin-bottom: 15px;
 }
 
 .imageTesoura {
@@ -257,6 +264,8 @@ nav .ItensNav {
 .FotoItenAtual {
     max-width: 90%;
     max-height: 90%;
+    min-width: 90%;
+    min-height: 90%;
     align-self: center;
     justify-self: center;
 }

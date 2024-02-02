@@ -111,6 +111,8 @@ const Itens = [
     { "id": 110, "nome": "Alma do Cosmos", "vida": 63850, "xp_gain": 764, "image": "" }
 ];
 
+
+
 //{{{{{{{{{{{{{{{{{{{{{{{{{{{ VARIAVEL GLOBAIS }}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 let gold = 0
@@ -131,6 +133,15 @@ const LevelDisplay = document.getElementById("Level")
 const Money = document.getElementById("Money")
 
 //{{{{{{{{{{{{{{{{{{{{{{{{{{{ VARIAVEL GLOBAIS }}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+// Faz sempre que o jogo abre____________________________________________
+
+window.addEventListener("DOMContentLoaded", () => {
+    item_sendo_minerado = nivel-1
+    DesenharItens()
+})
+
+// Faz sempre que o jogo abre____________________________________________
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
 
@@ -167,7 +178,8 @@ Btn_Return.addEventListener("click", () => {
 
 // desenha os itens na tela ________________
 function DesenharItens() {
-    CardIten.innerHTML = "";
+    // CardIten.innerHTML = "";
+    image_div.remove();
     image_div.setAttribute("src", "/images/itens/" + Itens[item_sendo_minerado].nome + ".png")
     image_div.setAttribute("class", "FotoItenAtual")
     image_div.setAttribute('alt', 'Foto item');
@@ -182,7 +194,9 @@ function DesenharItens() {
 // Minerando ____________________________________
 
 const FotoItenAtual = document.getElementsByClassName("FotoItenAtual")
-// const moneyText = document.getElementById('money-text');
+const VidaItem = document.getElementById("VidaItem")
+
+console.log(VidaItem)
 
 function ClickDetectorOnImg(e) {
     vida_do_item -= dano_picareta
@@ -261,8 +275,9 @@ function AddNivel() {
 // Atualiza todos os valores ________________________
 function Redraw() {
     DesenharItens()
+    GotoUp()
 }
-setInterval(Redraw(), 1)
+setInterval(Redraw(), 1000)
 //_______________________________________________
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
@@ -274,28 +289,33 @@ const up = document.getElementById("up")
 const st = document.getElementById("status")
 const config = document.getElementById("config")
 
-let janela = 1
+function GotoLoja() {
 
-loja.addEventListener("click",()=>{
-
-})
-
-up.addEventListener("click",()=>{
-
-})
-
-st.addEventListener("click",()=>{
-
-})
-
-config.addEventListener("click",()=>{
-
-})
-
-if(janela===1) {
-    
 }
+
+loja.addEventListener("click", GotoLoja())
+
+function GotoUp() {
+
+} 
+
+up.addEventListener("click", GotoUp())
+
+
+function GotoSt() {
+
+}
+
+st.addEventListener("click", GotoSt())
+
+function GotoConfig() {
+
+}
+
+config.addEventListener("click", GotoConfig())
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
 
 console.log("VIDA: " + vida_do_item)
+console.log("XP: " + xp)
+console.log("NIVEL: " + nivel)
