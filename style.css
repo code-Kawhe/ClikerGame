@@ -6,16 +6,18 @@
 /* nice scroll bar */
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #3271b6;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
     border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #a9a9a9a9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00000028;
     border-radius: 3px;
-  }
-  
+}
+
 
 body {
     margin: 0px;
@@ -358,7 +360,7 @@ nav .ItensNav {
 }
 
 .popup span i {
-padding-right: 5px;
+    padding-right: 5px;
 }
 
 .popup span {
@@ -372,4 +374,51 @@ padding-right: 5px;
     width: 14px;
     padding-right: 5px;
     filter: invert(100%);
+}
+
+.DivLoja {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.DivMinerador {
+    height: 64px;
+    margin-top: 3.5px;
+    margin-bottom: 3.5px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #002D5E;
+}
+
+.DivMC {
+    height: 100%;
+    width: 60%;
+
+    color: #FFF;
+    font-family: "Baloo Thambi";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.DivMR {
+    height: 100%;
+    width: 20%;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Baloo Thambi";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

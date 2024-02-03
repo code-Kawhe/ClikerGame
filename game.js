@@ -114,26 +114,26 @@ const Itens = [
 
 
 let Mineradores = [
-    { "id": 1, "nome": "Sonda de Siltito S-6000", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 15, "incremento": 3, "max": 5059 },
-    { "id": 2, "nome": "Catadora de Calcário C-1200", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 100, "incremento": 15, "max": 5059 },
-    { "id": 3, "nome": "Escavador de Ébano E-900", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 1100, "incremento": 165, "max": 5059 },
-    { "id": 4, "nome": "Perfuratriz de Pedras Preciosas P-1000", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 12000, "incremento": 1.800, "max": 5059 },
-    { "id": 5, "nome": "Broca de Benefícios B-800", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 130000, "incremento": 19500, "max": 5059 },
-    { "id": 6, "nome": "Lapidador de Lava L-1500", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 1400000, "incremento": 210000, "max": 5059 },
-    { "id": 7, "nome": "Sugador de Safira S-2000", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 20000000, "incremento": 3000000, "max": 5059 },
-    { "id": 8, "nome": "Perfuratriz de Precisão P-500", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 330000000, "incremento": 49500000, "max": 5059 },
-    { "id": 9, "nome": "Mina Mecânica M-360", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 5100000000, "incremento": 765000000, "max": 5059 },
-    { "id": 10, "nome": "Máquina de Mineração Modular MM-450", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 75000000000, "incremento": 11250000000, "max": 5059 },
-    { "id": 11, "nome": "Triturador Termodinâmico T-2000", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 1000000000000, "incremento": 150000000000, "max": 5059 },
-    { "id": 12, "nome": "Máquina de Perfuração Mineral MPM-3000", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 14000000000000, "incremento": 2100000000000, "max": 5059 },
-    { "id": 13, "nome": "Sugador de Sedimentos S-400", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 170000000000000, "incremento": 25500000000000, "max": 5059 },
-    { "id": 14, "nome": "Escavadora de Reservas Estratigráficas", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 2100000000000000, "incremento": 315000000000000, "max": 5059 },
-    { "id": 15, "nome": "Draga de Extração Profunda", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 26000000000000000, "incremento": 3900000000000000, "max": 5059 },
-    { "id": 16, "nome": "Jato de Jazida JX-700", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 310000000000000000, "incremento": 46500000000000000, "max": 5059 },
-    { "id": 17, "nome": "Diamante Digger D-2200", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 71000000000000000000, "incremento": 10650000000000000000, "max": 5059 },
-    { "id": 18, "nome": "Unidade de Mineração Multiespectral", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 12000000000000000000000, "incremento": 1800000000000000000000, "max": 5059 },
-    { "id": 19, "nome": "Sonda Geotécnica Série-X", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 1900000000000000000000000, "incremento": 284999999999999997902848, "max": 5059 },
-    { "id": 20, "nome": "Broca de Mineração Avançada", "dano_segundo": 1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 540000000000000000000000000, "incremento": 81000000000000000251658240, "max": 5059 },
+    { "id": 0, "nome": "Sonda de Siltito S-6000", "dano_segundo": 0.1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 15, "incremento": 3, "max": 5059 },
+    { "id": 1, "nome": "Catadora de Calcário C-1200", "dano_segundo": 1, "gold_segundo": 1, "qt_compradas": 0, "valor": 100, "incremento": 15, "max": 5047 },
+    { "id": 2, "nome": "Escavador de Ébano E-900", "dano_segundo": 8, "gold_segundo": 8, "qt_compradas": 0, "valor": 1100, "incremento": 165, "max": 5028 },
+    { "id": 3, "nome": "Perfuratriz de Pedras Preciosas", "dano_segundo": 47, "gold_segundo": 47, "qt_compradas": 0, "valor": 12000, "incremento": 1.800, "max": 5011 },
+    { "id": 4, "nome": "Broca de Benefícios B-800", "dano_segundo": 260, "gold_segundo": 260, "qt_compradas": 0, "valor": 130000, "incremento": 19500, "max": 4996 },
+    { "id": 5, "nome": "Lapidador de Lava L-1500", "dano_segundo": 1400, "gold_segundo": 1400, "qt_compradas": 0, "valor": 1400000, "incremento": 210000, "max": 4977 },
+    { "id": 6, "nome": "Sugador de Safira S-2000", "dano_segundo": 7800, "gold_segundo": 7800, "qt_compradas": 0, "valor": 20000000, "incremento": 3000000, "max": 4958 },
+    { "id": 7, "nome": "Perfuratriz de Precisão P-500", "dano_segundo": 44000, "gold_segundo": 44000, "qt_compradas": 0, "valor": 330000000, "incremento": 49500000, "max": 4938 },
+    { "id": 8, "nome": "Mina Mecânica M-360", "dano_segundo": 260000, "gold_segundo": 260000, "qt_compradas": 0, "valor": 5100000000, "incremento": 765000000, "max": 4918 },
+    { "id": 9, "nome": "Máquina de Mineração Modular", "dano_segundo": 1600000, "gold_segundo": 1600000, "qt_compradas": 0, "valor": 75000000000, "incremento": 11250000000, "max": 4899 },
+    { "id": 10, "nome": "Triturador Termodinâmico T-2000", "dano_segundo": 10000000, "gold_segundo": 10000000, "qt_compradas": 0, "valor": 1000000000000, "incremento": 150000000000, "max": 4880 },
+    { "id": 11, "nome": "Máquina de Perfuração Mineral", "dano_segundo": 65000000, "gold_segundo": 65000000, "qt_compradas": 0, "valor": 14000000000000, "incremento": 2100000000000, "max": 4861 },
+    { "id": 12, "nome": "Sugador de Sedimentos S-400", "dano_segundo": 430000000, "gold_segundo": 430000000, "qt_compradas": 0, "valor": 170000000000000, "incremento": 25500000000000, "max": 4844 },
+    { "id": 13, "nome": "Escavadora de Reservas", "dano_segundo": 2900000000, "gold_segundo": 2900000000, "qt_compradas": 0, "valor": 2100000000000000, "incremento": 315000000000000, "max": 4826 },
+    { "id": 14, "nome": "Draga de Extração Profunda", "dano_segundo": 21000000000, "gold_segundo": 21000000000, "qt_compradas": 0, "valor": 26000000000000000, "incremento": 3900000000000000, "max": 4808 },
+    { "id": 15, "nome": "Jato de Jazida JX-700", "dano_segundo": 150000000000, "gold_segundo": 150000000000, "qt_compradas": 0, "valor": 310000000000000000, "incremento": 46500000000000000, "max": 4790 },
+    { "id": 16, "nome": "Diamante Digger D-2200", "dano_segundo": 1100000000000, "gold_segundo": 1100000000000, "qt_compradas": 0, "valor": 71000000000000000000, "incremento": 10650000000000000000, "max": 4751 },
+    { "id": 17, "nome": "Unidade de Mineração", "dano_segundo": 8300000000000, "gold_segundo": 8300000000000, "qt_compradas": 0, "valor": 12000000000000000000000, "incremento": 1800000000000000000000, "max": 4714 },
+    { "id": 18, "nome": "Sonda Geotécnica Série-X", "dano_segundo": 64000000000000, "gold_segundo": 64000000000000, "qt_compradas": 0, "valor": 1900000000000000000000000, "incremento": 284999999999999997902848, "max": 4678 },
+    { "id": 19, "nome": "Broca de Mineração Avançada", "dano_segundo": 510000000000000, "gold_segundo": 510000000000000, "qt_compradas": 0, "valor": 540000000000000000000000000, "incremento": 81000000000000000251658240, "max": 4638 },
 ]
 
 //{{{{{{{{{{{{{{{{{{{{{{{{{{{ VARIAVEL GLOBAIS }}}}}}}}}}}}}}}}}}}}}}}}}}}
@@ -171,7 +171,7 @@ window.addEventListener("DOMContentLoaded", () => {
     DesenharItens()
     GotoUp()
 
- 
+
     Title.innerText = (`${gold} Cliker Game`)
 })
 
@@ -236,7 +236,7 @@ const FotoItenAtual = document.getElementsByClassName("FotoItenAtual")
 function ClickDetectorOnImg(e) {
     vida_do_item -= dano_picareta * DanoMult
     gold += valor_money_picareta * Itens[item_sendo_minerado].xp_gain * goldUpMult
-    VidaItem.value -= dano_picareta
+    VidaItem.value -= dano_picareta * DanoMult
     if (vida_do_item <= 0) {
         vida_do_item = Itens[item_sendo_minerado].vida
         gold += Itens[item_sendo_minerado].vida / 2
@@ -245,7 +245,7 @@ function ClickDetectorOnImg(e) {
         AddNivel()
     }
     Money.innerText = gold
- 
+
 
     const x = e.clientX;
     const y = e.clientY - 60;
@@ -381,13 +381,56 @@ setInterval(Redraw, 1000);
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
 
+const display = document.getElementById("ItensNav")
+
 const loja = document.getElementById("loja")
 const up = document.getElementById("up")
 const st = document.getElementById("status")
 const config = document.getElementById("config")
 
 function GotoLoja() {
+    const DivLoja = document.createElement("div")
+    DivLoja.setAttribute("id", "DivLoja")
+    DivLoja.setAttribute("class", "DivLoja")
 
+    Mineradores.map((i) => {
+        const DivMinerador = document.createElement("div")
+        DivMinerador.setAttribute("id", `Minerador${i.id}DIV`)
+        DivMinerador.setAttribute("class", "DivMinerador")
+
+        const imgMine = document.createElement("img")
+        imgMine.setAttribute("src", "/images/mineradores/imgExemplo.png")
+        imgMine.setAttribute("alt", "img mine")
+        imgMine.setAttribute("id", `Minerador${i.id}IMG`)
+        imgMine.setAttribute("class", "imageMiner")
+
+        const DivMC = document.createElement("div")
+        DivMC.setAttribute("id", `Minerador${i.id}C`)
+        DivMC.setAttribute("class", "DivMC")
+        DivMC.innerHTML =`
+        <div>${i.nome}</div>
+        <div>
+        <span>${i.dano_segundo}</span>
+        <span>${i.gold_segundo}</span>
+        </div>
+        
+        `
+
+        const DivMR = document.createElement("div")
+        DivMR.setAttribute("id", `Minerador${i.id}QT`)
+        DivMR.setAttribute("class", "DivMR")
+        DivMR.innerHTML =`
+        <p>${i.qt_compradas}</p>
+        `
+
+
+        DivMinerador.append(DivMR)
+        DivMinerador.append(DivMC)
+        DivMinerador.append(imgMine)
+
+        DivLoja.append(DivMinerador)
+    })
+    display.appendChild(DivLoja)
 }
 
 loja.addEventListener("click", GotoLoja())
