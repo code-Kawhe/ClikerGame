@@ -117,7 +117,7 @@ let Mineradores = [
     { "id": 0, "nome": "Sonda de Siltito S-6000", "dano_segundo": 0.1, "gold_segundo": 0.1, "qt_compradas": 0, "valor": 15, "incremento": 3, "max": 5059 },
     { "id": 1, "nome": "Catadora de Calcário C-1200", "dano_segundo": 1, "gold_segundo": 1, "qt_compradas": 0, "valor": 100, "incremento": 15, "max": 5047 },
     { "id": 2, "nome": "Escavador de Ébano E-900", "dano_segundo": 8, "gold_segundo": 8, "qt_compradas": 0, "valor": 1100, "incremento": 165, "max": 5028 },
-    { "id": 3, "nome": "Perfuratriz de Pedras Preciosas", "dano_segundo": 47, "gold_segundo": 47, "qt_compradas": 0, "valor": 12000, "incremento": 1.800, "max": 5011 },
+    { "id": 3, "nome": "Perfuratriz de Pedras Preciosas", "dano_segundo": 47, "gold_segundo": 47, "qt_compradas": 0, "valor": 12000, "incremento": 1800, "max": 5011 },
     { "id": 4, "nome": "Broca de Benefícios B-800", "dano_segundo": 260, "gold_segundo": 260, "qt_compradas": 0, "valor": 130000, "incremento": 19500, "max": 4996 },
     { "id": 5, "nome": "Lapidador de Lava L-1500", "dano_segundo": 1400, "gold_segundo": 1400, "qt_compradas": 0, "valor": 1400000, "incremento": 210000, "max": 4977 },
     { "id": 6, "nome": "Sugador de Safira S-2000", "dano_segundo": 7800, "gold_segundo": 7800, "qt_compradas": 0, "valor": 20000000, "incremento": 3000000, "max": 4958 },
@@ -153,6 +153,9 @@ let vida_do_item = Itens[item_sendo_minerado].vida
 let dano_picareta = 1
 let valor_money_picareta = 1
 
+let JogoSalvoCarregado = false
+let SalvamentoAutomatico = false
+
 const LevelDisplay = document.getElementById("Level")
 const Money = document.getElementById("Money")
 const VidaItem = document.getElementById("VidaItem")
@@ -170,9 +173,17 @@ window.addEventListener("DOMContentLoaded", () => {
     VidaItem.max = vida_do_item
     DesenharItens()
     GotoUp()
-
+    MostraMiners()
 
     Title.innerText = (`${gold} Cliker Game`)
+
+    if (localStorage.getItem("Salvo") === "sim") {
+        Carrega()
+        GotoLoja()
+        JogoSalvoCarregado = true
+    }
+
+    localStorage.setItem("Entrou_Time", Date())
 })
 
 // Faz sempre que o jogo abre____________________________________________
@@ -224,7 +235,7 @@ function DesenharItens() {
     image_div.setAttribute('onclick', 'ClickDetectorOnImg(event)');
     Item.appendChild(image_div)
     NomeItem.innerText = Itens[item_sendo_minerado].nome
-    Money.innerText = gold
+    Money.innerText = gold.toFixed(2)
     LevelDisplay.innerText = nivel
 }
 //_______________________________________________
@@ -244,7 +255,7 @@ function ClickDetectorOnImg(e) {
         VidaItem.value = vida_do_item
         AddNivel()
     }
-    Money.innerText = gold
+    Money.innerText = gold.toFixed(2)
 
 
     const x = e.clientX;
@@ -318,6 +329,8 @@ function AddNivel() {
 function Salva() {
 
     localStorage.setItem("gold", gold);
+    localStorage.setItem("Salvo", "sim");
+    localStorage.setItem("Salvo_Time", Date());
     localStorage.setItem("nivel", nivel);
     localStorage.setItem("xp", xp);
     localStorage.setItem("DanoMult", DanoMult);
@@ -326,6 +339,7 @@ function Salva() {
     localStorage.setItem("dano_picareta", dano_picareta);
     localStorage.setItem("valor_money_picareta", valor_money_picareta);
     localStorage.setItem("Mineradores", JSON.stringify(Mineradores));
+    localStorage.setItem("Salvamento_AUTO", SalvamentoAutomatico);
 
 }
 
@@ -339,7 +353,6 @@ function Carrega() {
     const XUMl = localStorage.getItem("xpUpMult");
     const DPl = localStorage.getItem("dano_picareta");
     const VMPl = localStorage.getItem("valor_money_picareta");
-    const Ml = localStorage.getItem("Mineradores");
     var mineradoresRecuperados = JSON.parse(localStorage.getItem('Mineradores'));
 
     gold = parseInt(Gl)
@@ -362,6 +375,12 @@ function Carrega() {
     LevelDisplay.innerText = nivel
 
     Title.innerText = (`${gold} Cliker Game`)
+    MostraMiners()
+    GotoLoja()
+}
+
+function Deletar() {
+    localStorage.clear()
 
 }
 
@@ -369,11 +388,346 @@ function Carrega() {
 
 // Atualiza todos os valores ________________________
 function Redraw() {
+    Title.innerText = (`${gold.toFixed(2)} Cliker Game`)
+    MostraMiners()
 
-    Title.innerText = (`${gold} Cliker Game`)
+    if (SalvamentoAutomatico) {
+        if (JogoSalvoCarregado) {
+            Salva()
+        }
+    }
+
+    if (Mineradores[0].qt_compradas > 0) {
+        vida_do_item -= Mineradores[0].dano_segundo * Mineradores[0].qt_compradas
+        gold += Mineradores[0].gold_segundo * Mineradores[0].qt_compradas
+        VidaItem.value -= Mineradores[0].dano_segundo * Mineradores[0].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[1].qt_compradas > 0) {
+        vida_do_item -= Mineradores[1].dano_segundo * Mineradores[1].qt_compradas
+        gold += Mineradores[1].gold_segundo * Mineradores[1].qt_compradas
+        VidaItem.value -= Mineradores[1].dano_segundo * Mineradores[1].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[2].qt_compradas > 0) {
+        vida_do_item -= Mineradores[2].dano_segundo * Mineradores[2].qt_compradas
+        gold += Mineradores[2].gold_segundo * Mineradores[2].qt_compradas
+        VidaItem.value -= Mineradores[2].dano_segundo * Mineradores[2].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[3].qt_compradas > 0) {
+        vida_do_item -= Mineradores[3].dano_segundo * Mineradores[3].qt_compradas
+        gold += Mineradores[3].gold_segundo * Mineradores[3].qt_compradas
+        VidaItem.value -= Mineradores[3].dano_segundo * Mineradores[3].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[4].qt_compradas > 0) {
+        vida_do_item -= Mineradores[4].dano_segundo * Mineradores[4].qt_compradas
+        gold += Mineradores[4].gold_segundo * Mineradores[4].qt_compradas
+        VidaItem.value -= Mineradores[4].dano_segundo * Mineradores[4].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[5].qt_compradas > 0) {
+        vida_do_item -= Mineradores[5].dano_segundo * Mineradores[5].qt_compradas
+        gold += Mineradores[5].gold_segundo * Mineradores[5].qt_compradas
+        VidaItem.value -= Mineradores[5].dano_segundo * Mineradores[5].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[6].qt_compradas > 0) {
+        vida_do_item -= Mineradores[6].dano_segundo * Mineradores[6].qt_compradas
+        gold += Mineradores[6].gold_segundo * Mineradores[6].qt_compradas
+        VidaItem.value -= Mineradores[6].dano_segundo * Mineradores[6].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[7].qt_compradas > 0) {
+        vida_do_item -= Mineradores[7].dano_segundo * Mineradores[7].qt_compradas
+        gold += Mineradores[7].gold_segundo * Mineradores[7].qt_compradas
+        VidaItem.value -= Mineradores[7].dano_segundo * Mineradores[7].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[8].qt_compradas > 0) {
+        vida_do_item -= Mineradores[8].dano_segundo * Mineradores[8].qt_compradas
+        gold += Mineradores[8].gold_segundo * Mineradores[8].qt_compradas
+        VidaItem.value -= Mineradores[8].dano_segundo * Mineradores[8].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[9].qt_compradas > 0) {
+        vida_do_item -= Mineradores[9].dano_segundo * Mineradores[9].qt_compradas
+        gold += Mineradores[9].gold_segundo * Mineradores[9].qt_compradas
+        VidaItem.value -= Mineradores[9].dano_segundo * Mineradores[9].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[10].qt_compradas > 0) {
+        vida_do_item -= Mineradores[10].dano_segundo * Mineradores[10].qt_compradas
+        gold += Mineradores[10].gold_segundo * Mineradores[10].qt_compradas
+        VidaItem.value -= Mineradores[10].dano_segundo * Mineradores[10].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[11].qt_compradas > 0) {
+        vida_do_item -= Mineradores[11].dano_segundo * Mineradores[11].qt_compradas
+        gold += Mineradores[11].gold_segundo * Mineradores[11].qt_compradas
+        VidaItem.value -= Mineradores[11].dano_segundo * Mineradores[11].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[12].qt_compradas > 0) {
+        vida_do_item -= Mineradores[12].dano_segundo * Mineradores[12].qt_compradas
+        gold += Mineradores[12].gold_segundo * Mineradores[12].qt_compradas
+        VidaItem.value -= Mineradores[12].dano_segundo * Mineradores[12].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[13].qt_compradas > 0) {
+        vida_do_item -= Mineradores[13].dano_segundo * Mineradores[13].qt_compradas
+        gold += Mineradores[13].gold_segundo * Mineradores[13].qt_compradas
+        VidaItem.value -= Mineradores[13].dano_segundo * Mineradores[13].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[14].qt_compradas > 0) {
+        vida_do_item -= Mineradores[14].dano_segundo * Mineradores[14].qt_compradas
+        gold += Mineradores[14].gold_segundo * Mineradores[14].qt_compradas
+        VidaItem.value -= Mineradores[14].dano_segundo * Mineradores[14].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[15].qt_compradas > 0) {
+        vida_do_item -= Mineradores[15].dano_segundo * Mineradores[15].qt_compradas
+        gold += Mineradores[15].gold_segundo * Mineradores[15].qt_compradas
+        VidaItem.value -= Mineradores[15].dano_segundo * Mineradores[15].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[16].qt_compradas > 0) {
+        vida_do_item -= Mineradores[16].dano_segundo * Mineradores[16].qt_compradas
+        gold += Mineradores[16].gold_segundo * Mineradores[16].qt_compradas
+        VidaItem.value -= Mineradores[16].dano_segundo * Mineradores[16].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[17].qt_compradas > 0) {
+        vida_do_item -= Mineradores[17].dano_segundo * Mineradores[17].qt_compradas
+        gold += Mineradores[17].gold_segundo * Mineradores[17].qt_compradas
+        VidaItem.value -= Mineradores[17].dano_segundo * Mineradores[17].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[18].qt_compradas > 0) {
+        vida_do_item -= Mineradores[18].dano_segundo * Mineradores[18].qt_compradas
+        gold += Mineradores[18].gold_segundo * Mineradores[18].qt_compradas
+        VidaItem.value -= Mineradores[18].dano_segundo * Mineradores[18].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
+
+    if (Mineradores[19].qt_compradas > 0) {
+        vida_do_item -= Mineradores[19].dano_segundo * Mineradores[19].qt_compradas
+        gold += Mineradores[19].gold_segundo * Mineradores[19].qt_compradas
+        VidaItem.value -= Mineradores[19].dano_segundo * Mineradores[19].qt_compradas
+        if (vida_do_item <= 0) {
+            vida_do_item = Itens[item_sendo_minerado].vida
+            gold += Itens[item_sendo_minerado].vida / 2
+            xp += Itens[item_sendo_minerado].xp_gain * xpUpMult
+            VidaItem.value = vida_do_item
+            AddNivel()
+        }
+        Money.innerText = gold.toFixed(2)
+    }
 
 }
 setInterval(Redraw, 1000);
+
+function MostraMiners() {
+    const MinersComprados = document.getElementById("MinersComprados")
+
+    MinersComprados.innerHTML = ""
+
+    Mineradores.map((i) => {
+        if (i.qt_compradas > 0) {
+
+            const DivMinerador = document.createElement("div")
+            DivMinerador.setAttribute("id", `Minerador${i.id}DIV`)
+            DivMinerador.setAttribute("class", "DivMinerador")
+
+            const imgMine = document.createElement("img")
+            imgMine.setAttribute("src", "/images/mineradores/imgExemplo.png")
+            imgMine.setAttribute("alt", "img mine")
+            imgMine.setAttribute("id", `Minerador${i.id}IMG`)
+            imgMine.setAttribute("class", "imageMiner")
+
+            const DivMC = document.createElement("div")
+            DivMC.setAttribute("id", `Minerador${i.id}C`)
+            DivMC.setAttribute("class", "DivMC")
+            DivMC.innerHTML = `
+            <div>${i.nome}</div>
+            <div>
+            <span>Dano: ${(i.dano_segundo * i.qt_compradas).toFixed(2)}</span>
+            <span>Gold: ${(i.gold_segundo * i.qt_compradas).toFixed(2)}</span>
+            </div>
+            
+            `
+
+            const DivMR = document.createElement("div")
+            DivMR.setAttribute("id", `Minerador${i.id}QT`)
+            DivMR.setAttribute("class", "DivMR")
+            DivMR.innerHTML = `
+            <p>${i.qt_compradas}</p>
+            `
+
+
+            DivMinerador.append(DivMR)
+            DivMinerador.append(DivMC)
+            DivMinerador.append(imgMine)
+
+            MinersComprados.append(DivMinerador)
+        } else {
+            return
+        }
+    })
+}
 
 //_______________________________________________
 
@@ -389,14 +743,17 @@ const st = document.getElementById("status")
 const config = document.getElementById("config")
 
 function GotoLoja() {
+    display.innerHTML = ""
     const DivLoja = document.createElement("div")
     DivLoja.setAttribute("id", "DivLoja")
     DivLoja.setAttribute("class", "DivLoja")
 
-    Mineradores.map((i) => {
+
+    Mineradores.map((i, index) => {
         const DivMinerador = document.createElement("div")
         DivMinerador.setAttribute("id", `Minerador${i.id}DIV`)
         DivMinerador.setAttribute("class", "DivMinerador")
+        DivMinerador.setAttribute("onclick", `compraMineradores(${index})`)
 
         const imgMine = document.createElement("img")
         imgMine.setAttribute("src", "/images/mineradores/imgExemplo.png")
@@ -407,21 +764,19 @@ function GotoLoja() {
         const DivMC = document.createElement("div")
         DivMC.setAttribute("id", `Minerador${i.id}C`)
         DivMC.setAttribute("class", "DivMC")
-        DivMC.innerHTML =`
-        <div>${i.nome}</div>
+        DivMC.innerHTML = `
+        <div>${i.nome} Valor: ${i.valor.toFixed(2)}</div>
         <div>
-        <span>${i.dano_segundo}</span>
-        <span>${i.gold_segundo}</span>
+        <span>Dano: ${i.dano_segundo}</span>
+        <span>Gold: ${i.gold_segundo}</span>
         </div>
         
         `
 
         const DivMR = document.createElement("div")
-        DivMR.setAttribute("id", `Minerador${i.id}QT`)
+        DivMR.setAttribute("id", `Minerador${i.id}QT Mineradores`)
         DivMR.setAttribute("class", "DivMR")
-        DivMR.innerHTML =`
-        <p>${i.qt_compradas}</p>
-        `
+        DivMR.innerHTML = i.qt_compradas
 
 
         DivMinerador.append(DivMR)
@@ -432,6 +787,22 @@ function GotoLoja() {
     })
     display.appendChild(DivLoja)
 }
+
+function compraMineradores(id) {
+    if (gold < Mineradores[id].valor) {
+        console.log("gold insuficiente")
+    } else {
+        gold -= Mineradores[id].valor
+        Money.innerText = gold.toFixed(2)
+        Mineradores[id].qt_compradas += 1
+        Mineradores[id].valor += Mineradores[id].valor * (1.15**Mineradores[id].qt_compradas)
+        MostraMiners()
+        Redraw()
+        GotoLoja()
+    }
+}
+
+console.log(1.15**Mineradores[id].qt_compradas)
 
 loja.addEventListener("click", GotoLoja())
 
