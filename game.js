@@ -800,7 +800,7 @@ function compraMineradores(id) {
         gold -= Mineradores[id].valor
         Money.innerText = gold.toFixed(2)
         Mineradores[id].qt_compradas += 1
-        Mineradores[id].valor += Mineradores[id].valor * (1.15**Mineradores[id].qt_compradas)
+        Mineradores[id].valor += Mineradores[id].valor * 1.15
         MostraMiners()
         Redraw()
         GotoLoja()
