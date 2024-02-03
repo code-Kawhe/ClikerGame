@@ -182,6 +182,7 @@ window.addEventListener("DOMContentLoaded", () => {
         GotoLoja()
         JogoSalvoCarregado = true
     }
+    GotoLoja()
 
     localStorage.setItem("Entrou_Time", Date())
 })
@@ -381,7 +382,7 @@ function Carrega() {
 
 function Deletar() {
     localStorage.clear()
-
+    window.location.reload()
 }
 
 //{_{_{_{_{_{_{_{_{_{_{_--------salvando e carregando--------}_}_}_}_}_}_}_}_}_}_}
@@ -390,12 +391,6 @@ function Deletar() {
 function Redraw() {
     Title.innerText = (`${gold.toFixed(2)} Cliker Game`)
     MostraMiners()
-
-    if (SalvamentoAutomatico) {
-        if (JogoSalvoCarregado) {
-            Salva()
-        }
-    }
 
     if (Mineradores[0].qt_compradas > 0) {
         vida_do_item -= Mineradores[0].dano_segundo * Mineradores[0].qt_compradas
@@ -680,6 +675,15 @@ function Redraw() {
 }
 setInterval(Redraw, 1000);
 
+function S60() {
+    if (SalvamentoAutomatico) {
+        if (JogoSalvoCarregado) {
+            Salva()
+        }
+    }
+}
+setInterval(s60, 60000)
+
 function MostraMiners() {
     const MinersComprados = document.getElementById("MinersComprados")
 
@@ -735,7 +739,6 @@ function MostraMiners() {
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
 
-const display = document.getElementById("ItensNav")
 
 const loja = document.getElementById("loja")
 const up = document.getElementById("up")
@@ -743,7 +746,9 @@ const st = document.getElementById("status")
 const config = document.getElementById("config")
 
 function GotoLoja() {
+    const display = document.getElementById("ItensNav")
     display.innerHTML = ""
+
     const DivLoja = document.createElement("div")
     DivLoja.setAttribute("id", "DivLoja")
     DivLoja.setAttribute("class", "DivLoja")
