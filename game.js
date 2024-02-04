@@ -439,10 +439,10 @@ function setCookie(nome, valor, diasParaExpirar) {
     
     if (cookieExistente !== "") {
         // Se o cookie já existe, substitui o valor
-        document.cookie = nome + "=" + encodeURIComponent(valor) + ";" + expiracao + ";path=/";
+        document.cookie = nome + "=" + valor + ";" + expiracao + ";path=/";
     } else {
         // Se o cookie não existe, define um novo
-        document.cookie = nome + "=" + encodeURIComponent(valor) + ";" + expiracao + ";path=/";
+        document.cookie = nome + "=" + valor + ";" + expiracao + ";path=/";
     }
 }
 
@@ -456,13 +456,11 @@ function getCookie(nome) {
             cookie = cookie.substring(1);
         }
         if (cookie.indexOf(nomeC) == 0) {
-            // Decodifica o valor do cookie antes de retornar
-            return decodeURIComponent(cookie.substring(nomeC.length, cookie.length));
+            return cookie.substring(nomeC.length, cookie.length);
         }
     }
     return "";
 }
-
 
 // COOKIES_MANEGMENT__________________________
 
@@ -485,7 +483,7 @@ function Redraw() {
     setCookie("Mineradores", JSON.stringify(Mineradores));
     setCookie("Salvamento_AUTO", SalvamentoAutomatico);
 
-
+    
 
     Title.innerText = (`${gold.toFixed(2)} Cliker Game`)
     MostraMiners()
