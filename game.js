@@ -154,12 +154,13 @@ let dano_picareta = 1
 let valor_money_picareta = 1
 
 let JogoSalvoCarregado = false
-let SalvamentoAutomatico = false
+let SalvamentoAutomatico = true
 
 const LevelDisplay = document.getElementById("Level")
 const Money = document.getElementById("Money")
 const VidaItem = document.getElementById("VidaItem")
 const Title = document.getElementById("Title")
+const ProgresLevel = document.getElementById("ProgresLevel")
 
 //{{{{{{{{{{{{{{{{{{{{{{{{{{{ VARIAVEL GLOBAIS }}}}}}}}}}}}}}}}}}}}}}}}}}}
 
@@ -177,18 +178,39 @@ window.addEventListener("DOMContentLoaded", () => {
 
     Title.innerText = (`${gold} Cliker Game`)
 
-    if (localStorage.getItem("Salvo") === "sim") {
+    if (getCookie("Salvo") === "sim") {
         Carrega()
         GotoLoja()
         JogoSalvoCarregado = true
+    } else {
+        Salva()
     }
     GotoLoja()
 
-    localStorage.setItem("Entrou_Time", Date())
+
+    ProgresLevel.max = Itens[nivel - 1].vida * 2.5
+    ProgresLevel.value = xp
+
+    setCookie("Entrou_Time", Date())
 })
 
 // Faz sempre que o jogo abre____________________________________________
 
+window.onbeforeunload = saida;
+
+function saida() {
+    alert('ok1')
+    var sair = confirm("Deseja salvar antes de sair?");
+
+    if (sair == true) {
+        alert('ok2')
+        Salva()
+    } else {
+        alert('ok3')
+        window.close();
+    }
+
+}
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
 
 //variaveis para DesenharItens() ________________
@@ -267,41 +289,57 @@ function ClickDetectorOnImg(e) {
 }
 
 let nextId = 1; // Variável para gerar IDs únicos
+let lastClickTime = 0; // Variável para controlar o último tempo de clique
+const clickInterval = 35; // Intervalo mínimo entre cliques em milissegundos
 
 function criarMoneyText(x, y, valor, dano) {
-    const moneyText = document.createElement('div');
+    const currentTime = new Date().getTime();
+
+    // Verifica se o tempo desde o último clique é maior que o intervalo mínimo
+    if (currentTime - lastClickTime < clickInterval) {
+        return; // Impede a criação de novas divs se o intervalo mínimo não foi atingido
+    }
+
+    lastClickTime = currentTime; // Atualiza o tempo do último clique
+
     const currentId = nextId++; // Gera um novo ID e incrementa o contador
-    moneyText.id = `money-text-${currentId}`;
-    moneyText.classList.add('money-text');
-    moneyText.style.left = x + 'px';
-    moneyText.style.top = y + 'px';
+    const moneyTextId = `money-text-${currentId}`;
+
+    let moneyText = document.getElementById(moneyTextId);
+
+    if (!moneyText) {
+        moneyText = document.createElement('div');
+        moneyText.id = moneyTextId;
+        moneyText.classList.add('money-text');
+        moneyText.style.left = x + 'px';
+        moneyText.style.top = y + 'px';
+        document.body.appendChild(moneyText);
+    }
+
     moneyText.innerHTML = `
-    <div class="popup">
-    <span><i class="fa-solid fa-dollar-sign"></i>${valor}</span>
-    <span><img src="/images/picareta/picareta.png" alt="pk" class="placeholderquebra">${dano}</span>
-    </div>
+        <div class="popup">
+            <span><i class="fa-solid fa-dollar-sign"></i>${valor}</span>
+            <span><img src="/images/picareta/picareta.png" alt="pk" class="placeholderquebra">${dano}</span>
+        </div>
     `;
-    document.body.appendChild(moneyText);
 
     let yOffset = 0;
     const totalDuration = 2000; // Duração total em milissegundos
     const intervalDuration = 30; // Intervalo em milissegundos
 
-    let steps = totalDuration / intervalDuration; // Alteração para 'let'
+    let steps = totalDuration / intervalDuration;
 
     const interval = setInterval(() => {
         moneyText.style.top = y - yOffset + 'px';
-        moneyText.style.opacity = 1 - yOffset / 50; // Ajuste conforme necessário
-        yOffset += 2; // Ajuste conforme necessário
+        moneyText.style.opacity = 1 - yOffset / 50;
+        yOffset += 2;
 
         if (--steps <= 0) {
             clearInterval(interval);
             moneyText.style.opacity = 0;
 
-            // Remove a div após 1 segundo (1000 milissegundos) usando o ID
             setTimeout(() => {
-                const elementToRemove = document.getElementById(`money-text-${currentId}`);
-                // Verifica se o elemento ainda existe antes de tentar removê-lo
+                const elementToRemove = document.getElementById(moneyTextId);
                 if (elementToRemove && elementToRemove.parentNode) {
                     elementToRemove.parentNode.removeChild(elementToRemove);
                 }
@@ -329,32 +367,32 @@ function AddNivel() {
 
 function Salva() {
 
-    localStorage.setItem("gold", gold);
-    localStorage.setItem("Salvo", "sim");
-    localStorage.setItem("Salvo_Time", Date());
-    localStorage.setItem("nivel", nivel);
-    localStorage.setItem("xp", xp);
-    localStorage.setItem("DanoMult", DanoMult);
-    localStorage.setItem("goldUpMult", goldUpMult);
-    localStorage.setItem("xpUpMult", xpUpMult);
-    localStorage.setItem("dano_picareta", dano_picareta);
-    localStorage.setItem("valor_money_picareta", valor_money_picareta);
-    localStorage.setItem("Mineradores", JSON.stringify(Mineradores));
-    localStorage.setItem("Salvamento_AUTO", SalvamentoAutomatico);
+    setCookie("gold", gold);
+    setCookie("Salvo", "sim");
+    setCookie("Salvo_Time", Date());
+    setCookie("nivel", nivel);
+    setCookie("xp", xp);
+    setCookie("DanoMult", DanoMult);
+    setCookie("goldUpMult", goldUpMult);
+    setCookie("xpUpMult", xpUpMult);
+    setCookie("dano_picareta", dano_picareta);
+    setCookie("valor_money_picareta", valor_money_picareta);
+    setCookie("Mineradores", JSON.stringify(Mineradores));
+    setCookie("Salvamento_AUTO", SalvamentoAutomatico);
 
 }
 
 function Carrega() {
-
-    const Gl = localStorage.getItem("gold");
-    const Nl = localStorage.getItem("nivel");
-    const Xl = localStorage.getItem("xp");
-    const DMl = localStorage.getItem("DanoMult");
-    const GUMl = localStorage.getItem("goldUpMult");
-    const XUMl = localStorage.getItem("xpUpMult");
-    const DPl = localStorage.getItem("dano_picareta");
-    const VMPl = localStorage.getItem("valor_money_picareta");
-    var mineradoresRecuperados = JSON.parse(localStorage.getItem('Mineradores'));
+    JogoSalvoCarregado = true
+    const Gl = getCookie("gold");
+    const Nl = getCookie("nivel");
+    const Xl = getCookie("xp");
+    const DMl = getCookie("DanoMult");
+    const GUMl = getCookie("goldUpMult");
+    const XUMl = getCookie("xpUpMult");
+    const DPl = getCookie("dano_picareta");
+    const VMPl = getCookie("valor_money_picareta");
+    var mineradoresRecuperados = JSON.parse(getCookie('Mineradores'));
 
     gold = parseInt(Gl)
     nivel = parseInt(Nl)
@@ -378,6 +416,7 @@ function Carrega() {
     Title.innerText = (`${gold} Cliker Game`)
     MostraMiners()
     GotoLoja()
+
 }
 
 function Deletar() {
@@ -387,8 +426,67 @@ function Deletar() {
 
 //{_{_{_{_{_{_{_{_{_{_{_--------salvando e carregando--------}_}_}_}_}_}_}_}_}_}_}
 
+// COOKIES_MANEGMENT__________________________
+
+// Função para definir ou substituir um cookie
+function setCookie(nome, valor, diasParaExpirar) {
+    var dataExpiracao = new Date();
+    dataExpiracao.setTime(dataExpiracao.getTime() + (diasParaExpirar * 24 * 60 * 60 * 1000));
+    var expiracao = "expires=" + dataExpiracao.toUTCString();
+    
+    // Verifica se o cookie já existe
+    var cookieExistente = getCookie(nome);
+    
+    if (cookieExistente !== "") {
+        // Se o cookie já existe, substitui o valor
+        document.cookie = nome + "=" + encodeURIComponent(valor) + ";" + expiracao + ";path=/";
+    } else {
+        // Se o cookie não existe, define um novo
+        document.cookie = nome + "=" + encodeURIComponent(valor) + ";" + expiracao + ";path=/";
+    }
+}
+
+// Função para obter o valor de um cookie
+function getCookie(nome) {
+    var nomeC = nome + "=";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(nomeC) == 0) {
+            // Decodifica o valor do cookie antes de retornar
+            return decodeURIComponent(cookie.substring(nomeC.length, cookie.length));
+        }
+    }
+    return "";
+}
+
+
+// COOKIES_MANEGMENT__________________________
+
+let s = 0
+
 // Atualiza todos os valores ________________________
 function Redraw() {
+
+
+    setCookie("gold", gold);
+    setCookie("Salvo", "sim");
+    setCookie("Salvo_Time", Date());
+    setCookie("nivel", nivel);
+    setCookie("xp", xp);
+    setCookie("DanoMult", DanoMult);
+    setCookie("goldUpMult", goldUpMult);
+    setCookie("xpUpMult", xpUpMult);
+    setCookie("dano_picareta", dano_picareta);
+    setCookie("valor_money_picareta", valor_money_picareta);
+    setCookie("Mineradores", JSON.stringify(Mineradores));
+    setCookie("Salvamento_AUTO", SalvamentoAutomatico);
+
+
+
     Title.innerText = (`${gold.toFixed(2)} Cliker Game`)
     MostraMiners()
 
@@ -672,17 +770,26 @@ function Redraw() {
         Money.innerText = gold.toFixed(2)
     }
 
+    if (SalvamentoAutomatico) {
+        Salva()
+    }
+
+    console.log(s)
+    s++
+
+    ProgresLevel.max = Itens[nivel - 1].vida * 2.5
+    ProgresLevel.value = xp
+
 }
 setInterval(Redraw, 1000);
 
-function S60() {
-    if (SalvamentoAutomatico) {
-        if (JogoSalvoCarregado) {
-            Salva()
-        }
-    }
-}
-setInterval(s60, 60000)
+// function S60() {
+//     if (SalvamentoAutomatico) {
+//             Salva()
+//     }
+//     console.log("tinha de Salva")
+// }
+// setInterval(S60, 60000)
 
 function MostraMiners() {
     const MinersComprados = document.getElementById("MinersComprados")
@@ -800,14 +907,12 @@ function compraMineradores(id) {
         gold -= Mineradores[id].valor
         Money.innerText = gold.toFixed(2)
         Mineradores[id].qt_compradas += 1
-        Mineradores[id].valor += Mineradores[id].valor * 1.10
+        Mineradores[id].valor += (Mineradores[id].valor * 1.10) - Mineradores[id].valor
         MostraMiners()
         Redraw()
         GotoLoja()
     }
 }
-
-console.log(1.15**Mineradores[id].qt_compradas)
 
 loja.addEventListener("click", GotoLoja())
 

@@ -431,3 +431,9 @@ nav .ItensNav {
     pointer-events: none;
     user-select:none; 
 }
+
+.LevelDisplay progress {
+    height: 25px;
+    width: 70%;
+    margin-right: 15px;
+}
