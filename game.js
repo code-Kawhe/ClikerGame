@@ -178,7 +178,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     Title.innerText = (`${gold} Cliker Game`)
 
-    if (getCookie("Salvo") === "sim") {
+    if (localStorage.getItem("Salvo") === "sim") {
         Carrega()
         GotoLoja()
         JogoSalvoCarregado = true
@@ -191,7 +191,7 @@ window.addEventListener("DOMContentLoaded", () => {
     ProgresLevel.max = Itens[nivel - 1].vida * 2.5
     ProgresLevel.value = xp
 
-    setCookie("Entrou_Time", Date())
+    localStorage.setItem("Entrou_Time", Date())
 })
 
 // Faz sempre que o jogo abre____________________________________________
@@ -367,32 +367,32 @@ function AddNivel() {
 
 function Salva() {
 
-    setCookie("gold", gold);
-    setCookie("Salvo", "sim");
-    setCookie("Salvo_Time", Date());
-    setCookie("nivel", nivel);
-    setCookie("xp", xp);
-    setCookie("DanoMult", DanoMult);
-    setCookie("goldUpMult", goldUpMult);
-    setCookie("xpUpMult", xpUpMult);
-    setCookie("dano_picareta", dano_picareta);
-    setCookie("valor_money_picareta", valor_money_picareta);
-    setCookie("Mineradores", JSON.stringify(Mineradores));
-    setCookie("Salvamento_AUTO", SalvamentoAutomatico);
+    localStorage.setItem("gold", gold);
+    localStorage.setItem("Salvo", "sim");
+    localStorage.setItem("Salvo_Time", Date());
+    localStorage.setItem("nivel", nivel);
+    localStorage.setItem("xp", xp);
+    localStorage.setItem("DanoMult", DanoMult);
+    localStorage.setItem("goldUpMult", goldUpMult);
+    localStorage.setItem("xpUpMult", xpUpMult);
+    localStorage.setItem("dano_picareta", dano_picareta);
+    localStorage.setItem("valor_money_picareta", valor_money_picareta);
+    localStorage.setItem("Mineradores", JSON.stringify(Mineradores));
+    localStorage.setItem("Salvamento_AUTO", SalvamentoAutomatico);
 
 }
 
 function Carrega() {
     JogoSalvoCarregado = true
-    const Gl = getCookie("gold");
-    const Nl = getCookie("nivel");
-    const Xl = getCookie("xp");
-    const DMl = getCookie("DanoMult");
-    const GUMl = getCookie("goldUpMult");
-    const XUMl = getCookie("xpUpMult");
-    const DPl = getCookie("dano_picareta");
-    const VMPl = getCookie("valor_money_picareta");
-    var mineradoresRecuperados = JSON.parse(getCookie('Mineradores'));
+    const Gl = localStorage.getItem("gold");
+    const Nl = localStorage.getItem("nivel");
+    const Xl = localStorage.getItem("xp");
+    const DMl = localStorage.getItem("DanoMult");
+    const GUMl = localStorage.getItem("goldUpMult");
+    const XUMl = localStorage.getItem("xpUpMult");
+    const DPl = localStorage.getItem("dano_picareta");
+    const VMPl = localStorage.getItem("valor_money_picareta");
+    var mineradoresRecuperados = JSON.parse(localStorage.getItem('Mineradores'));
 
     gold = parseInt(Gl)
     nivel = parseInt(Nl)
@@ -426,65 +426,11 @@ function Deletar() {
 
 //{_{_{_{_{_{_{_{_{_{_{_--------salvando e carregando--------}_}_}_}_}_}_}_}_}_}_}
 
-// COOKIES_MANEGMENT__________________________
-
-// Função para definir ou substituir um cookie
-function setCookie(nome, valor, diasParaExpirar) {
-    var dataExpiracao = new Date();
-    dataExpiracao.setTime(dataExpiracao.getTime() + (diasParaExpirar * 24 * 60 * 60 * 1000));
-    var expiracao = "expires=" + dataExpiracao.toUTCString();
-    
-    // Verifica se o cookie já existe
-    var cookieExistente = getCookie(nome);
-    
-    if (cookieExistente !== "") {
-        // Se o cookie já existe, substitui o valor
-        document.cookie = nome + "=" + valor + ";" + expiracao + ";path=/";
-    } else {
-        // Se o cookie não existe, define um novo
-        document.cookie = nome + "=" + valor + ";" + expiracao + ";path=/";
-    }
-}
-
-// Função para obter o valor de um cookie
-function getCookie(nome) {
-    var nomeC = nome + "=";
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
-        }
-        if (cookie.indexOf(nomeC) == 0) {
-            return cookie.substring(nomeC.length, cookie.length);
-        }
-    }
-    return "";
-}
-
-// COOKIES_MANEGMENT__________________________
 
 let s = 0
 
 // Atualiza todos os valores ________________________
 function Redraw() {
-
-
-    setCookie("gold", gold);
-    setCookie("Salvo", "sim");
-    setCookie("Salvo_Time", Date());
-    setCookie("nivel", nivel);
-    setCookie("xp", xp);
-    setCookie("DanoMult", DanoMult);
-    setCookie("goldUpMult", goldUpMult);
-    setCookie("xpUpMult", xpUpMult);
-    setCookie("dano_picareta", dano_picareta);
-    setCookie("valor_money_picareta", valor_money_picareta);
-    setCookie("Mineradores", JSON.stringify(Mineradores));
-    setCookie("Salvamento_AUTO", SalvamentoAutomatico);
-
-    
-
     Title.innerText = (`${gold.toFixed(2)} Cliker Game`)
     MostraMiners()
 
