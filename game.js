@@ -136,6 +136,24 @@ let Mineradores = [
     { "id": 19, "nome": "Broca de Mineração Avançada", "dano_segundo": 510000000000000, "gold_segundo": 510000000000000, "qt_compradas": 0, "valor": 540000000000000000000000000, "incremento": 81000000000000000251658240, "max": 4638 },
 ]
 
+let UpPicareta = [
+    { "id": 0, "nome": "Picareta de vidro", "DanoMult": 2, "valor": 100, "To_buy": 1, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de lapis", "DanoMult": 2.5, "valor": 500, "To_buy": 2, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de pedra", "DanoMult": 3, "valor": 10000, "To_buy": 4, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de carvão", "DanoMult": 3.5, "valor": 100000, "To_buy": 6, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de redstone", "DanoMult": 4, "valor": 10000000, "To_buy": 8, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de cobre", "DanoMult": 4.5, "valor": 100000000, "To_buy": 10, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de ferro", "DanoMult": 5, "valor": 10000000000, "To_buy": 12, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de ouro", "DanoMult": 5.5, "valor": 100000000000, "To_buy": 14, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de diamante", "DanoMult": 6, "valor": 10000000000000, "To_buy": 16, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de esmeralda", "DanoMult": 6.5, "valor": 100000000000000000, "To_buy": 18, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de rubi", "DanoMult": 7, "valor": 10000000000000000000, "To_buy": 20, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de quartz", "DanoMult": 7.5, "valor": 100000000000000000000, "To_buy": 22, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de netherita", "DanoMult": 8, "valor": 10000000000000000000000, "To_buy": 24, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de cobalt", "DanoMult": 9, "valor": 100000000000000000000000, "To_buy": 26, "qt_compradas": 0 },
+    { "id": 0, "nome": "Picareta de allthemodiun", "DanoMult": 10, "valor": 10000000000000000000000000, "To_buy": 30, "qt_compradas": 0 },
+]
+
 //{{{{{{{{{{{{{{{{{{{{{{{{{{{ VARIAVEL GLOBAIS }}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 let gold = 0
@@ -858,25 +876,83 @@ function compraMineradores(id) {
     }
 }
 
-loja.addEventListener("click", GotoLoja())
+loja.addEventListener("click", GotoLoja)
 
 function GotoUp() {
+    const display = document.getElementById("ItensNav")
+    display.innerHTML = ""
+    const DivLoja = document.createElement("div")
+    DivLoja.setAttribute("id", "DivLoja")
+    DivLoja.setAttribute("class", "DivLoja")
+    UpPicareta.map((i, index) => {
+        if (i.To_buy > nivel) {
+            return
+        } else {
+            if (i.qt_compradas >= 1) {
+                return
+            } else {
+                const DivMinerador = document.createElement("div")
+                DivMinerador.setAttribute("id", `Minerador${i.id}DIV`)
+                DivMinerador.setAttribute("class", "DivMinerador")
+                DivMinerador.setAttribute("onclick", `compraUpPicareta(${index})`)
+                
+                const imgMine = document.createElement("img")
+                imgMine.setAttribute("src", "/images/mineradores/imgExemplo.png")
+                imgMine.setAttribute("alt", "img mine")
+                imgMine.setAttribute("id", `Minerador${i.id}IMG`)
+                imgMine.setAttribute("class", "imageMiner")
+                
+                const DivMC = document.createElement("div")
+                DivMC.setAttribute("id", `Minerador${i.id}C`)
+                DivMC.setAttribute("class", "DivMC")
+                DivMC.innerHTML = `
+                <div>${i.nome} Valor: ${i.valor.toFixed(2)}</div>
+                <div>
+                <span>Dano: x${i.DanoMult}</span>
+                </div>
+                `
+                const DivMR = document.createElement("div")
+                DivMR.setAttribute("id", `Minerador${i.id}QT Mineradores`)
+                DivMR.setAttribute("class", "DivMR")
+                
+                DivMinerador.append(DivMR)
+                DivMinerador.append(DivMC)
+                DivMinerador.append(imgMine)
+                DivLoja.append(DivMinerador)
+            }
+        }
+    })
+    display.appendChild(DivLoja)
+}
+
+function compraUpPicareta(id) {
+
+    if (gold < UpPicareta[id].valor) {
+        console.log("gold insuficiente")
+    } else {
+        gold -= UpPicareta[id].valor
+        Money.innerText = gold.toFixed(2)
+        DanoMult += UpPicareta[id].DanoMult
+        UpPicareta[id].qt_compradas += 1
+        Redraw()
+        GotoUp()
+    }
 
 }
 
-up.addEventListener("click", GotoUp())
+up.addEventListener("click", GotoUp)
 
 
 function GotoSt() {
 
 }
 
-st.addEventListener("click", GotoSt())
+st.addEventListener("click", GotoSt)
 
 function GotoConfig() {
 
 }
 
-config.addEventListener("click", GotoConfig())
+config.addEventListener("click", GotoConfig)
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_----
